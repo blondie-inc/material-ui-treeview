@@ -162,9 +162,9 @@ class MuiTreeView extends Component {
           button
           {...(href
             ? {
-                component: Link,
-                to: href,
-              }
+              component: Link,
+              to: href,
+            }
             : null)}
           {...listItemProps}>
           <div className={classes.text}>{value}</div>
@@ -199,13 +199,16 @@ class MuiTreeView extends Component {
           {...expansionPanelDetailsProps}
           classes={{ root: classes.panelDetails }}
           className={classNames(pickClassName(expansionPanelDetailsProps))}>
-          {node.nodes.map(l =>
-            this.renderNode({
-              node: l,
-              parent: node,
-              depth: depth + 1,
-              haltSearch: shouldHaltSearch,
-            })
+          {node.nodes.map(l => {
+              node.parent = parent;
+
+              return this.renderNode({
+                node: l,
+                parent: node,
+                depth: depth + 1,
+                haltSearch: shouldHaltSearch,
+              });
+            }
           )}
         </ExpansionPanelDetails>
       </ExpansionPanel>
